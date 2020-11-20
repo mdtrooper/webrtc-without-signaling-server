@@ -1,6 +1,6 @@
 function clickcreateoffer() {
-  //caca();
-  oldcaca();
+  caca();
+  //oldcaca();
   
   //~ console.log('clickcreateoffer');
   //~ document.getElementById('buttoncreateoffer').disabled = true;
@@ -14,9 +14,9 @@ function clickcreateoffer() {
 }
 
 function oldcaca() {
-        peerConnection2 = createPeerConnection(
+    peerConnection2 = createPeerConnection(
         function() {
-            console.log('caca lasticecandidate');
+            console.log('oldcaca lasticecandidate');
             offer = peerConnection2.localDescription;
             console.log(JSON.stringify(offer));
         }
@@ -27,19 +27,19 @@ function oldcaca() {
     createOfferPromise = peerConnection2.createOffer();
     createOfferPromise.then(
         function(offer) {
-            console.log('caca createOfferDone');
+            console.log('oldcaca createOfferDone');
             setLocalPromise = peerConnection.setLocalDescription(offer);
             setLocalPromise.then(
                 function() {
-                    console.log('caca setLocalDone')
+                    console.log('oldcaca setLocalDone')
                 },
                 function (reason) {
-                    console.log('caca setLocalFailed');
+                    console.log('oldcaca setLocalFailed');
                     console.log(reason);
                 });
         },
         function(reason) {
-            console.log('caca createOfferFailed');
+            console.log('oldcaca createOfferFailed');
             console.log(reason);
         });
 }
@@ -47,11 +47,11 @@ function oldcaca() {
 function caca() {
     console.log('caca');
     
-    let configuration = {
+    configuration = {
         iceServers: [{
             urls: "stun:stun.stunprotocol.org"}]};
     
-    let peerConnection3 = null;
+    peerConnection3 = null;
     try {
         console.log('caca new RTCPeerConnection');
         peerConnection3 = new RTCPeerConnection(configuration);
@@ -60,24 +60,22 @@ function caca() {
     }
     
     peerConnection3.onicecandidate =
-        function handleicecandidate() {
-            return function(event) {
-                if (event.candidate != null) {
-                    console.log('caca new ice candidate');
-                }
-                else {
-                    console.log('caca all ice candidates');
-                    console.log('caca lasticecandidate');
-                    let offer = peerConnection2.localDescription;
-                    console.log(JSON.stringify(offer));
-                }
+        function(event) {
+            if (event.candidate != null) {
+                console.log('caca new ice candidate');
             }
-        }
+            else {
+                console.log('caca all ice candidates');
+                console.log('caca lasticecandidate');
+                let offer = peerConnection3.localDescription;
+                console.log(JSON.stringify(offer));
+            }
+        };
     peerConnection3.onconnectionstatechange =
         function(event) {
             console.log('caca handleconnectionstatechange');
             console.log(event);
-        }
+        };
     peerConnection3.oniceconnectionstatechange = function(event) {
         console.log('caca ice connection state: ' + event.target.iceConnectionState);
     }
